@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPS Test - Clicks Per Second Tester</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="logo">
+                    <span class="logo-icon">⚡</span>
+                    <span class="logo-text">CPS TESTER</span>
+                </div>
+                <div class="nav-dropdown">
+                    <button class="dropdown-btn">CPS Test <span class="dropdown-arrow">▼</span></button>
+                </div>
+            </div>
+            <div class="nav-right">
+                <button class="nav-btn">Right Click</button>
+                <button class="nav-btn">Double Click</button>
+                <div class="lang-dropdown">
+                    <button class="lang-btn">English <span class="dropdown-arrow">▼</span></button>
+                </div>
+                <div class="theme-toggle-nav">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="themeToggle">
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <span class="toggle-label-nav">Light/Dark mode</span>
+                </div>
+                <button class="nav-btn" id="spacebarBtn">Spacebar Counter</button>
+                <button class="nav-btn-icon" id="fullscreenBtn" title="Open Fullscreen">⛶</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h1 class="main-title">CPS Test (Clicks Per Second)</h1>
+            <p class="subtitle">This simple and free CPS (Clicks per Second) tester will help you determine your mouse or finger tap speed.</p>
+        </section>
+
+        <!-- Test Section -->
+        <section class="test-section">
+            <!-- Test Display Area -->
+            <div class="test-display">
+                <div class="display-item timer-display">
+                    <div class="display-value" id="timerValue">5.00</div>
+                    <div class="display-controls">
+                        <button class="arrow-btn" id="timerUp">▲</button>
+                        <button class="arrow-btn" id="timerDown">▼</button>
+                    </div>
+                    <div class="display-label">TIMER</div>
+                </div>
+                <div class="display-item clicks-display">
+                    <div class="display-value" id="clicksValue">0.00</div>
+                    <div class="display-label">CLICKS/S</div>
+                </div>
+                <div class="display-item score-display">
+                    <div class="display-value" id="scoreValue">0</div>
+                    <div class="display-label">SCORE</div>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-bar-container">
+                <div class="progress-bar">
+                    <div class="progress-segment purple"></div>
+                    <div class="progress-segment yellow"></div>
+                    <div class="progress-segment green"></div>
+                </div>
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+
+            <!-- Click Area -->
+            <div class="click-area" id="clickArea">
+                <div class="cursor-icon">
+                    <svg width="60" height="60" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Stylized mouse cursor with starburst effect -->
+                        <path d="M10 10 L10 50 L30 50 L30 70 L50 50 L50 10 Z" fill="white" opacity="0.9"/>
+                        <circle cx="10" cy="10" r="3" fill="white"/>
+                        <line x1="10" y1="10" x2="20" y2="20" stroke="white" stroke-width="2" opacity="0.6"/>
+                        <line x1="10" y1="10" x2="15" y2="25" stroke="white" stroke-width="1.5" opacity="0.5"/>
+                        <line x1="10" y1="10" x2="25" y2="15" stroke="white" stroke-width="1.5" opacity="0.5"/>
+                    </svg>
+                </div>
+                <p class="click-instruction">CLICK HERE TO START CPS TEST</p>
+                <div class="click-ripple" id="clickRipple"></div>
+            </div>
+            
+            <!-- Results Section -->
+            <div class="results-section" id="resultsSection" style="display: none;">
+                <div class="result-card">
+                    <h3 class="result-title">Test Complete! 🎉</h3>
+                    <div class="result-stats">
+                        <div class="result-stat">
+                            <span class="result-label">Total Clicks</span>
+                            <span class="result-value" id="resultClicks">0</span>
+                        </div>
+                        <div class="result-stat">
+                            <span class="result-label">CPS Score</span>
+                            <span class="result-value" id="resultCPS">0.00</span>
+                        </div>
+                        <div class="result-stat">
+                            <span class="result-label">Time</span>
+                            <span class="result-value" id="resultTime">0.0s</span>
+                        </div>
+                    </div>
+                    <div class="result-badge" id="resultBadge"></div>
+                    <div class="result-actions">
+                        <button class="share-btn" id="shareBtn">
+                            <span>📤</span> Share Result
+                        </button>
+                        <button class="retry-btn" id="retryBtn">Try Again</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CPS Timeframes -->
+            <div class="timeframes-section">
+                <h2 class="section-title">CPS Timeframes</h2>
+                <div class="timeframe-buttons">
+                    <button class="timeframe-btn" data-time="1">1 SECOND TEST</button>
+                    <button class="timeframe-btn" data-time="3">3 SECOND TEST</button>
+                    <button class="timeframe-btn" data-time="5">5 SECOND TEST</button>
+                    <button class="timeframe-btn" data-time="10">10 SECOND TEST</button>
+                    <button class="timeframe-btn" data-time="15">15 SECOND TEST</button>
+                    <button class="timeframe-btn" data-time="30">30 SECOND TEST</button>
+                    <button class="timeframe-btn" data-time="60">60 SECOND TEST</button>
+                    <button class="timeframe-btn" data-time="100">100 SECOND TEST</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Sections -->
+        <section class="content-section">
+            <div class="content-block">
+                <h2 class="content-title">How to take a CPS Test?</h2>
+                <div class="instruction-list">
+                    <div class="instruction-item">
+                        <div class="instruction-number">1</div>
+                        <div class="instruction-content">
+                            <h3>Just click in the test area</h3>
+                            <p>To get started, just click in the testing area and the test will run right away. You can use full screen mode and light/dark mode to make testing as convenient for you as possible.</p>
+                        </div>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-number">2</div>
+                        <div class="instruction-content">
+                            <h3>Maximize your clicking speed</h3>
+                            <p>After the test has started, try to make as many clicks as possible in the allotted time. We have a variety of timeframes from 1 second to 100 seconds.</p>
+                        </div>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-number">3</div>
+                        <div class="instruction-content">
+                            <h3>Get the result</h3>
+                            <p>After completing the test, you will know your score and average click speed. Share your results with your friends on social networks!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2 class="content-title">What is CPS Test?</h2>
+                <p class="content-text">
+                    CPS (Clicks Per Second) test is a tool designed to measure how fast you can click your mouse or tap your screen in a given time period. It's a popular way to test your clicking speed and accuracy, especially among gamers who need quick reflexes for competitive gaming. The test works by counting the number of clicks you make within a specified timeframe and calculating your average clicks per second. Factors like mouse quality, clicking technique, and practice can significantly influence your results. Many gamers use CPS tests to improve their reaction time and clicking accuracy.
+                </p>
+            </div>
+
+            <div class="content-block">
+                <h2 class="content-title">How many clicks per second is fast?</h2>
+                <div class="rating-list">
+                    <div class="rating-item">
+                        <span class="rating-label">Less than 5 CPS:</span>
+                        <span class="rating-value">speed of the turtle.</span>
+                    </div>
+                    <div class="rating-item">
+                        <span class="rating-label">5 to 10 CPS:</span>
+                        <span class="rating-value">A good result.</span>
+                    </div>
+                    <div class="rating-item">
+                        <span class="rating-label">More than 10 CPS:</span>
+                        <span class="rating-value">faster than most players.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2 class="content-title">How can I improve my clicking speed?</h2>
+                <ul class="tips-list">
+                    <li>Use different mouse click techniques such as jitter click or butterfly click.</li>
+                    <li>Try to improve the mouse sensitivity in the computer settings.</li>
+                    <li>Use a gaming mouse instead of a regular one.</li>
+                    <li>Practice mouse speed more often, for example when playing video games.</li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h2 class="content-title">Key features of CPS-Tester.com</h2>
+                <ul class="features-list">
+                    <li>Full screen test mode</li>
+                    <li>Light / Dark test mode</li>
+                    <li>Different timeframes for testing, from 1 to 100 seconds</li>
+                    <li>Convenient sharing of your results on social media</li>
+                    <li>You can use the test both on desktop computers and on mobile devices</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">CPS TESTER</span>
+            </div>
+            <div class="footer-links">
+                <a href="#" class="footer-link">Contact us</a>
+                <span class="footer-separator">|</span>
+                <a href="#" class="footer-link">Privacy Policy</a>
+                <span class="footer-separator">|</span>
+                <a href="#" class="footer-link">Terms of Use</a>
+            </div>
+            <div class="footer-copyright">
+                <p>CPS-Tester.com © 2026 All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
